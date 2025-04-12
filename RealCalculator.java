@@ -15,10 +15,9 @@ public class RealCalculator extends JFrame implements ActionListener {
         setLayout(new BorderLayout(10, 10));
         setLocationRelativeTo(null);
 
-        // Set background color of the window
+    
         getContentPane().setBackground(new Color(230, 230, 250)); // light lavender
 
-        // Display field styling
         display = new JTextField("0");
         display.setFont(new Font("Courier New", Font.BOLD, 28));
         display.setEditable(false);
@@ -49,7 +48,7 @@ public class RealCalculator extends JFrame implements ActionListener {
             button.setBorder(BorderFactory.createLineBorder(Color.GRAY));
             button.addActionListener(this);
 
-            // Optional: Add hover effect (requires MouseAdapter)
+            // Optional: Add hover effect
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     button.setBackground(new Color(180, 180, 255));
@@ -83,7 +82,13 @@ public class RealCalculator extends JFrame implements ActionListener {
         } else if (cmd.equals("=")) {
             double num2 = Double.parseDouble(display.getText());
             double result = calculate(num1, num2, operator);
-            display.setText(String.valueOf(result));
+
+            // Format result: show decimal if needed
+            if (result == (long) result)
+                display.setText(String.valueOf((long) result));
+            else
+                display.setText(String.valueOf(result));
+
             startNewNumber = true;
         } else if (cmd.equals("C")) {
             display.setText("0");
